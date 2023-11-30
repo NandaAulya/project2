@@ -1,17 +1,26 @@
 package Model;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
+
 import Entity.Data.dataBuku;
 import Entity.JSON.DataJSONBuku;
+import netscape.javascript.JSException;
 
 public class ModelJSONBuku {
-    String fname = "database/buku.json";
+    String fname = "src/database/buku.json";
 
+    DataJSONBuku dataJSONBuku = new DataJSONBuku();
+
+    // cek file
     public boolean cekFile() {
         boolean cek = false;
         try {
@@ -23,62 +32,86 @@ public class ModelJSONBuku {
         }
         return cek;
     }
-    
-    public void setupFile(){
-        try{
-            if (cekFile() == false){
+
+    // setup file
+    public void setupFile() {
+        try {
+            if (cekFile() == false) {
                 File file = new File(fname);
-                if (file.createNewFile()){
-                    System.out.println("File Created");
+                if (file.createNewFile()) {
+                    System.out.println("File Database Buku Berhasil dibuat");
                 }
             }
         } catch (IOException e) {
             System.out.println("error");
         }
     }
- 
-    // public ArrayList<dataBuku> readJSONToArrayList() {
-    //     try (FileReader fileReader = new FileReader(fname)) {
-    //         JsonArray arrayBuku = (JsonArray) JsonArray.parse(fileReader);
-    //         return convertJSONToArraylist(arrayBuku);
-    //     } catch (IOException e) {
-    //         System.out.println("Error reading from JSON file: " + e.getMessage());
-    //         return new ArrayList<>();
-    //     }
-    // }
-    public JsonArray convertArrayListToArrayJSON(ArrayList<dataBuku> listBuku) {
-        JsonArray arrayBuku = new JsonArray();
-        for (dataBuku buku : listBuku) {
-            JsonObject objBuku = new JsonObject();
-            objBuku.put("idBuku", buku.idBuku);
-            objBuku.put("pengarang", buku.pengarang);
-            objBuku.put("judulBuku", buku.judulBuku);
-            objBuku.put("tahunTerbit", buku.tahunTerbit);
-            arrayBuku.add(objBuku);
+
+    // convert
+    public JsonArray convertArrayTJsonArray(ArrayList<dataBuku> listBuku) {
+        if (listBuku == null) {
+            return null;
+        } else {
+            JsonArray arrayBuku = new JsonArray();
+            for (dataBuku buku : listBuku) {
+                JsonObject objBuku = new JsonObject();
+                objBuku.put(dataJSONBuku.idBuku, buku.idBuku);
+                objBuku.put(dataJSONBuku.judulBuku, buku.judulBuku);
+                objBuku.put(dataJSONBuku.pengarang, buku.pengarang);
+                objBuku.put(dataJSONBuku.tahunTerbit, buku.tahunTerbit);
+                objBuku.put(dataJSONBuku.stok, buku.stok);
+                arrayBuku.add(objBuku);
+            }
+            return arrayBuku;
         }
-        return arrayBuku;
-     }
-       public void writeArrayToJSON(ArrayList<dataBuku> listBuku) {
-        JsonArray arrayBuku = convertArrayListToArrayJSON(listBuku);
+
+    }
+
+    // write
+    public void writeFileJson(ArrayList<dataBuku> listBuku) {
+        JsonArray arrayBuku = convertArrayTJsonArray(listBuku);
         try {
             FileWriter file = new FileWriter(fname);
-            file.write(arrayBuku.toString());
+            file.write(arrayBuku.toJson());
             file.flush();
             file.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    // public ArrayList<dataBuku> convertJSONToArraylist(JsonArray arrayBuku) {
-    //     ArrayList<dataBuku> listBuku = new ArrayList<>();
-    //     for (Object obj : arrayBuku) {
-    //         JsonObject jsonObj = (JsonObject) obj;
-    //         String judul = (String) jsonObj.get("judul");
-    //         String pengarang = (String) jsonObj.get("pengarang");
-    //         int tahunTerbit = Integer.parseInt(jsonObj.get("tahunTerbit").toString());
-    //         dataBuku buku = new dataBuku(judul, pengarang, tahunTerbit);
-    //         listBuku.add(buku);
-    //     }
-    //     return listBuku;
-    // }
+
+    // read
+    public ArrayList<dataBuku> convertJSONToArrayList(JsonArray arrayBuku) {
+        if (arrayBuku == null) {
+            return null;
+        } else {
+            ArrayList<dataBuku> listBuku = new ArrayList<>();
+            for (Object objBuku : arrayBuku) {
+                JsonObject buku = (JsonObject) objBuku;
+                int idBuku = Integer.parseInt(buku.get(dataJSONBuku.idBuku).toString());
+                String judulBuku = buku.get(dataJSONBuku.judulBuku).toString();
+                String pengarang = buku.get(dataJSONBuku.pengarang).toString();
+                int tahunTerbit = Integer.parseInt(buku.get(dataJSONBuku.tahunTerbit).toString());
+                int stok = Integer.parseInt(buku.get(dataJSONBuku.stok).toString());
+                listBuku.add(new dataBuku(idBuku, judulBuku, pengarang, tahunTerbit, stok));
+            }
+            return listBuku;
+        }
+    }
+
+    // read from file json
+    public ArrayList<dataBuku> readFromFile() {
+        if (cekFile() == false) {
+            return null;
+        }
+        ArrayList<dataBuku> listBuku = null;
+        try (FileReader file = new FileReader(fname)) {
+            JsonArray arrayBuku = (JsonArray) Jsoner.deserialize(file);
+            listBuku = convertJSONToArrayList(arrayBuku);
+
+        } catch (IOException | JsonException e) {
+            throw new RuntimeException(e);
+        }
+        return listBuku;
+    }
 }

@@ -1,21 +1,32 @@
-import Model.ModelJSONBuku;
-import Entity.Data.dataBuku;
 import java.util.ArrayList;
 import com.github.cliftonlabs.json_simple.JsonArray;
-
+import Entity.Data.dataBuku;
+import Model.ModelJSONBuku;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         ModelJSONBuku model = new ModelJSONBuku();
-        
-        ArrayList<dataBuku> listBuku1 = null;
-        JsonArray arrayBuku1 = model.convertArrayListToArrayJSON(listBuku1);
-        System.out.println("arrayBuku1 = " + arrayBuku1);
+        model.setupFile();
 
-        ArrayList<dataBuku> listBuku2 = new ArrayList<>();
-        listBuku1.add(new dataBuku(1, "Buku 1", "Pengarang 1", 2010));
-        listBuku2.add(new dataBuku(2, "Buku 2", "Pengarang 2", 2011));
-        JsonArray arrayBuku2 = model.convertArrayListToArrayJSON(listBuku2);
-        System.out.println("arrayBuku2 = " + arrayBuku2);
+        // test write
+        //  ArrayList<dataBuku> listBuku = new ArrayList<>();
+        // listBuku.add(new dataBuku(1, "buku1 ", "pengarang1", 2002, 30));
+        // listBuku.add(new dataBuku(2, "buku2", "pengarang2", 2003, 40));
+        // listBuku.add(new dataBuku(3, "buku3", "pengarang3", 2004, 50));
+        // model.writeFileJson(listBuku);
+        // System.out.println("Data berhasil dimasukkan");
+
+        // test readM
+        ArrayList<dataBuku> listBook2 = model.readFromFile();
+        for (dataBuku buku : listBook2) {
+            System.out.println(buku.idBuku);
+            System.out.println(buku.judulBuku);
+            System.out.println(buku.pengarang);
+            System.out.println(buku.tahunTerbit);
+            System.out.println(buku.stok);
+            System.out.println("-----------------------");
+        }
+
+
     }
 }
