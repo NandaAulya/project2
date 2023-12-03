@@ -64,7 +64,7 @@ public class Main {
         if (listPengarang2 != null) {
             for (dataPengarang pengarang1 : listPengarang2) {
                 System.out.println("ID Pengarang: " + pengarang1.idPengarang);
-                System.out.println("Namaara Pengarang: " + pengarang1.namaPengarang);
+                System.out.println("Nama Pengarang: " + pengarang1.namaPengarang);
                 System.out.println("-----------------------");
             }
         }
