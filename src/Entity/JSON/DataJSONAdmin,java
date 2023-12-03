@@ -1,0 +1,11 @@
+package Entity.JSON;
+
+public class DataJSONAdmin {
+    public String idAdmin;
+    public String namaAdmin;
+
+    public DataJSONAdmin() {
+        this.idAdmin = "idAdmin";
+        this.namaAdmin = "namaAdmin";
+    }
+}
