@@ -54,8 +54,8 @@ public class ModelJSONPengarang {
             JsonArray arrayPenulis = new JsonArray();
             for (dataPengarang penulis : listPenulis) {
                 JsonObject objPenulis = new JsonObject();
-                objPenulis.put(datajsonpenulis.namaPenulis, penulis.namaPenulis);
-                objPenulis.put(datajsonpenulis.idPenulis, penulis.idPenulis);
+                objPenulis.put(datajsonpenulis.namaPengarang, penulis.namaPengarang);
+                objPenulis.put(datajsonpenulis.idPengarang, penulis.idPengarang);
                 arrayPenulis.add(objPenulis);
             }
             return arrayPenulis;
@@ -83,8 +83,8 @@ public class ModelJSONPengarang {
             ArrayList<dataPengarang> listPenulis = new ArrayList<>();
             for (Object objPenulis : arrayPenulis) {
                 JsonObject penulis = (JsonObject) objPenulis;
-                String namaPenulis = penulis.get(datajsonpenulis.namaPenulis).toString();
-                int idPenulis = Integer.parseInt(penulis.get(datajsonpenulis.idPenulis).toString());
+                String namaPenulis = penulis.get(datajsonpenulis.namaPengarang).toString();
+                int idPenulis = Integer.parseInt(penulis.get(datajsonpenulis.idPengarang).toString());
                 listPenulis.add(new dataPengarang(namaPenulis, idPenulis));
             }
             return listPenulis;

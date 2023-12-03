@@ -129,7 +129,7 @@ public class ModelJSONBuku {
     }
 
     // read from file json
-    public ArrayList<dataBuku> readFromFilePengarang(ArrayList<dataPengarang> listPengarang) {
+    public ArrayList<dataBuku> readFromFile(ArrayList<dataPengarang> listPengarang) {
         if (cekFile(fname) == false) {
             return null;
         }

@@ -1,11 +1,11 @@
 package Entity.JSON;
 
 public class DataJSONPengarang {
-    public String namaPenulis;
-    public String idPenulis;
+    public String namaPengarang;
+    public String idPengarang;
     
     public DataJSONPengarang() {
-        this.namaPenulis = "namaPenulis";
-        this.idPenulis = "idPenulis";
+        this.namaPengarang = "namaPengarang";
+        this.idPengarang = "idPengarang";
     }
 }

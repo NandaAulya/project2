@@ -41,7 +41,7 @@ public class Main {
         buku.writeFileJson(listBuku);
         System.out.println("Data Buku berhasil dimasukkan");
 
-        ArrayList<dataBuku> listBuku2 = buku.readBukuFromFilePengarang(listPengarang);
+        ArrayList<dataBuku> listBuku2 = buku.readBukuFromFile();
         if (listBuku2 != null) {
             for (dataBuku buku1 : listBuku2) {
                 System.out.println("ID Buku: " + buku1.idBuku);
