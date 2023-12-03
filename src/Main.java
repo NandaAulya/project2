@@ -21,7 +21,7 @@ public class Main {
         ModelJSONAdmin admin = new ModelJSONAdmin();
         // model.setupFile();
         // Setup file untuk pengarang
-        pengarang.setupFile("src/database/pengarang.json");
+        pengarang.setupFile();
 
         // Setup file untuk buku
         buku.setupFile("src/database/buku.json");
@@ -41,7 +41,8 @@ public class Main {
         buku.writeFileJson(listBuku);
         System.out.println("Data Buku berhasil dimasukkan");
 
-        ArrayList<dataBuku> listBuku2 = buku.readBukuFromFile();
+
+        ArrayList<dataBuku> listBuku2 = buku.readFromFile(null);
         if (listBuku2 != null) {
             for (dataBuku buku1 : listBuku2) {
                 System.out.println("ID Buku: " + buku1.idBuku);
@@ -56,11 +57,11 @@ public class Main {
         ArrayList<dataPengarang> listPengarang = new ArrayList<>();
         listPengarang.add(new dataPengarang("Pengarang1", 1));
         listPengarang.add(new dataPengarang("Pengarang2", 2));
-        pengarang.writePengarangJson(listPengarang);
+        pengarang.writeFileJson(listPengarang);
         System.out.println("Data Pengarang berhasil dimasukkan");
 
         // Membaca objek dataPengarang dari file JSON
-        ArrayList<dataPengarang> listPengarang2 = pengarang.readPengarangFromFile();
+        ArrayList<dataPengarang> listPengarang2 = pengarang.readFromFile();
         if (listPengarang2 != null) {
             for (dataPengarang pengarang1 : listPengarang2) {
                 System.out.println("ID Pengarang: " + pengarang1.idPengarang);

@@ -15,7 +15,7 @@ import Entity.Data.dataPengarang;
 import Entity.JSON.DataJSONPengarang;
 
 public class ModelJSONPengarang {
-    String fname = "src/database/penulis.json";
+    String fname = "src/database/pengarang.json";
 
     DataJSONPengarang datajsonpenulis = new DataJSONPengarang();
 
@@ -33,7 +33,7 @@ public class ModelJSONPengarang {
     }
 
     // setup file
-    public void setupFilePenulis() {
+    public void setupFile() {
         try {
             if (cekFilePenulis() == false) {
                 File file = new File(fname);
@@ -104,15 +104,5 @@ public class ModelJSONPengarang {
             throw new RuntimeException(e);
         }
         return listPenulis;
-    }
-
-    public void setupFile(String string) {
-    }
-
-    public void writePengarangJson(ArrayList<dataPengarang> listPengarang) {
-    }
-
-    public ArrayList<dataPengarang> readPengarangFromFile() {
-        return null;
     }
 }

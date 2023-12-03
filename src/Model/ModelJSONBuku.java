@@ -66,6 +66,15 @@ public class ModelJSONBuku {
         }
     }
 
+    public dataPengarang findPengarangById(ArrayList<dataPengarang> listPengarang, int idPengarang) {
+        for (dataPengarang pengarang : listPengarang) {
+            if ((int)pengarang.idPengarang == idPengarang) {
+                return pengarang;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<dataBuku> convertJSONToArrayList(JsonArray arrayBuku, ArrayList<dataPengarang> listPengarang) {
         if (arrayBuku == null) {
             return null;
@@ -86,14 +95,7 @@ public class ModelJSONBuku {
         }
     }
 
-    public dataPengarang findPengarangById(ArrayList<dataPengarang> listPengarang, int idPengarang) {
-        for (dataPengarang pengarang : listPengarang) {
-            if ((int)pengarang.idPengarang == idPengarang) {
-                return pengarang;
-            }
-        }
-        return null;
-    }
+    
 
     // write
     public void writeFileJson(ArrayList<dataBuku> listBuku) {
