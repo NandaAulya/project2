@@ -75,8 +75,8 @@ public class ModelJSONBuku {
                 JsonObject buku = (JsonObject) objBuku;
                 int idBuku = Integer.parseInt(buku.get(dataJSONBuku.idBuku).toString());
                 String judulBuku = buku.get(dataJSONBuku.judulBuku).toString();
-                String idPengarangStr = buku.get(dataJSONBuku.pengarang).toString();
-                int idPengarang = Integer.parseInt(idPengarangStr); // Mengambil idPengarang dari JSON
+                String idPengarang = buku.get(dataJSONBuku.pengarang).toString();
+                int idPengarang = Integer.parseInt(idPengarang); // Mengambil idPengarang dari JSON
                 dataPengarang pengarang = findPengarangById(listPengarang, idPengarang); // Mencari pengarang berdasarkan id
                 int tahunTerbit = Integer.parseInt(buku.get(dataJSONBuku.tahunTerbit).toString());
                 int stok = Integer.parseInt(buku.get(dataJSONBuku.stok).toString());
@@ -142,9 +142,5 @@ public class ModelJSONBuku {
             throw new RuntimeException(e);
         }
         return listBuku;
-    }
-
-    public ArrayList<dataBuku> readBukuFromFile() {
-        return null;
     }
 }

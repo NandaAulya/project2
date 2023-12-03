@@ -1,13 +1,12 @@
 package Entity.Data;
 
 public class dataPengarang {
-    public static final String namaPengarang = null;
-    public final Object idPengarang = null;
-    public String namaPenulis;
-    public int idPenulis;
+    public String namaPengarang;
+    public int idPengarang;
 
-    public dataPengarang(String namaPenulis, int idPenulis) {
-        this.namaPenulis = namaPenulis;
-        this.idPenulis = idPenulis;
+    public dataPengarang(String namaPengarang, int idPengarang) {
+        this.namaPengarang = namaPengarang;
+        this.idPengarang = idPengarang;
+        
     }
 }
