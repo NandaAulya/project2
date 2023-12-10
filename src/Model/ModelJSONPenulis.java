@@ -15,7 +15,7 @@ import Entity.Data.dataPenulis;
 import Entity.JSON.DataJSONPenulis;
 
 public class ModelJSONPenulis {
-    String fname = "src/database/pengarang.json";
+    String fname = "src/database/penulis.json";
 
     DataJSONPenulis datajsonpenulis = new DataJSONPenulis();
 

@@ -7,10 +7,10 @@ public class dataBuku {
     public int tahunTerbit;
     public int stok;
 
-    public dataBuku(int idBuku, String judulBuku, dataPenulis pengarang, int tahunTerbit, int stok) {
+    public dataBuku(int idBuku, String judulBuku, dataPenulis penulis, int tahunTerbit, int stok) {
         this.idBuku = idBuku;
         this.judulBuku = judulBuku;
-        this.penulis = pengarang;
+        this.penulis = penulis;
         this.tahunTerbit = tahunTerbit;
         this.stok = stok;
     }
