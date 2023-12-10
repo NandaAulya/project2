@@ -3,14 +3,14 @@ package Entity.Data;
 public class dataBuku {
     public int idBuku;
     public String judulBuku;
-    public dataPengarang pengarang; // Tambahkan atribut untuk pengarang
+    public dataPenulis penulis; // Tambahkan atribut untuk pengarang
     public int tahunTerbit;
     public int stok;
 
-    public dataBuku(int idBuku, String judulBuku, dataPengarang pengarang, int tahunTerbit, int stok) {
+    public dataBuku(int idBuku, String judulBuku, dataPenulis pengarang, int tahunTerbit, int stok) {
         this.idBuku = idBuku;
         this.judulBuku = judulBuku;
-        this.pengarang = pengarang;
+        this.penulis = pengarang;
         this.tahunTerbit = tahunTerbit;
         this.stok = stok;
     }

@@ -11,13 +11,13 @@ import com.github.cliftonlabs.json_simple.JsonException;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
-import Entity.Data.dataPengarang;
-import Entity.JSON.DataJSONPengarang;
+import Entity.Data.dataPenulis;
+import Entity.JSON.DataJSONPenulis;
 
-public class ModelJSONPengarang {
+public class ModelJSONPenulis {
     String fname = "src/database/pengarang.json";
 
-    DataJSONPengarang datajsonpenulis = new DataJSONPengarang();
+    DataJSONPenulis datajsonpenulis = new DataJSONPenulis();
 
     // cek file
     public boolean cekFilePenulis() {
@@ -47,15 +47,15 @@ public class ModelJSONPengarang {
     }
 
     // convert
-    public JsonArray convertArrayToJsonArray(ArrayList<dataPengarang> listPenulis) {
+    public JsonArray convertArrayToJsonArray(ArrayList<dataPenulis> listPenulis) {
         if (listPenulis == null) {
             return null;
         } else {
             JsonArray arrayPenulis = new JsonArray();
-            for (dataPengarang penulis : listPenulis) {
+            for (dataPenulis penulis : listPenulis) {
                 JsonObject objPenulis = new JsonObject();
-                objPenulis.put(datajsonpenulis.namaPengarang, penulis.namaPengarang);
-                objPenulis.put(datajsonpenulis.idPengarang, penulis.idPengarang);
+                objPenulis.put(datajsonpenulis.namaPenulis, penulis.namaPenulis);
+                objPenulis.put(datajsonpenulis.idPenulis, penulis.idPenulis);
                 arrayPenulis.add(objPenulis);
             }
             return arrayPenulis;
@@ -63,7 +63,7 @@ public class ModelJSONPengarang {
     }
 
     // write
-    public void writeFileJson(ArrayList<dataPengarang> listPenulis) {
+    public void writeFileJson(ArrayList<dataPenulis> listPenulis) {
         JsonArray arrayPenulis = convertArrayToJsonArray(listPenulis);
         try {
             FileWriter file = new FileWriter(fname);
@@ -76,27 +76,27 @@ public class ModelJSONPengarang {
     }
 
     // read
-    public ArrayList<dataPengarang> convertJSONToArrayList(JsonArray arrayPenulis) {
+    public ArrayList<dataPenulis> convertJSONToArrayList(JsonArray arrayPenulis) {
         if (arrayPenulis == null) {
             return null;
         } else {
-            ArrayList<dataPengarang> listPenulis = new ArrayList<>();
+            ArrayList<dataPenulis> listPenulis = new ArrayList<>();
             for (Object objPenulis : arrayPenulis) {
                 JsonObject penulis = (JsonObject) objPenulis;
-                String namaPenulis = penulis.get(datajsonpenulis.namaPengarang).toString();
-                int idPenulis = Integer.parseInt(penulis.get(datajsonpenulis.idPengarang).toString());
-                listPenulis.add(new dataPengarang(namaPenulis, idPenulis));
+                String namaPenulis = penulis.get(datajsonpenulis.namaPenulis).toString();
+                int idPenulis = Integer.parseInt(penulis.get(datajsonpenulis.idPenulis).toString());
+                listPenulis.add(new dataPenulis(namaPenulis, idPenulis));
             }
             return listPenulis;
         }
     }
 
     // read from file
-    public ArrayList<dataPengarang> readFromFile() {
+    public ArrayList<dataPenulis> readFromFile() {
         if (cekFilePenulis() == false) {
             return null;
         }
-        ArrayList<dataPengarang> listPenulis = null;
+        ArrayList<dataPenulis> listPenulis = null;
         try (FileReader file = new FileReader(fname)) {
             JsonArray arrayPenulis = (JsonArray) Jsoner.deserialize(file);
             listPenulis = convertJSONToArrayList(arrayPenulis);

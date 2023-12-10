@@ -13,7 +13,7 @@ import com.github.cliftonlabs.json_simple.Jsoner;
 
 import Entity.Data.dataBuku;
 import Entity.JSON.DataJSONBuku;
-import Entity.Data.dataPengarang;
+import Entity.Data.dataPenulis;
 
 public class ModelJSONBuku {
     String fname = "src/database/buku.json";
@@ -57,7 +57,7 @@ public class ModelJSONBuku {
                 JsonObject objBuku = new JsonObject();
                 objBuku.put(dataJSONBuku.idBuku, buku.idBuku);
                 objBuku.put(dataJSONBuku.judulBuku, buku.judulBuku);
-                objBuku.put(dataJSONBuku.pengarang, buku.pengarang.idPengarang); // Ubah pengarang menjadi idPengarang
+                objBuku.put(dataJSONBuku.penulis, buku.penulis.idPenulis); // Ubah penulis menjadi idPengarang
                 objBuku.put(dataJSONBuku.tahunTerbit, buku.tahunTerbit);
                 objBuku.put(dataJSONBuku.stok, buku.stok);
                 arrayBuku.add(objBuku);
@@ -66,16 +66,7 @@ public class ModelJSONBuku {
         }
     }
 
-    public dataPengarang findPengarangById(ArrayList<dataPengarang> listPengarang, int idPengarang) {
-        for (dataPengarang pengarang : listPengarang) {
-            if ((int)pengarang.idPengarang == idPengarang) {
-                return pengarang;
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<dataBuku> convertJSONToArrayList(JsonArray arrayBuku, ArrayList<dataPengarang> listPengarang) {
+    public ArrayList<dataBuku> convertJSONToArrayList(JsonArray arrayBuku, ArrayList<dataPenulis> listPenulis) {
         if (arrayBuku == null) {
             return null;
         } else {
@@ -84,17 +75,25 @@ public class ModelJSONBuku {
                 JsonObject buku = (JsonObject) objBuku;
                 int idBuku = Integer.parseInt(buku.get(dataJSONBuku.idBuku).toString());
                 String judulBuku = buku.get(dataJSONBuku.judulBuku).toString();
-                String idPengarang = buku.get(dataJSONBuku.pengarang).toString();
-                int idPengarang = Integer.parseInt(idPengarang); // Mengambil idPengarang dari JSON
-                dataPengarang pengarang = findPengarangById(listPengarang, idPengarang); // Mencari pengarang berdasarkan id
+                String idPenulis1 = buku.get(dataJSONBuku.penulis).toString();
+                int idPenulis = Integer.parseInt(idPenulis1); // Mengambil idPengarang dari JSON
+                dataPenulis penulis = findPengarangById(listPenulis, idPenulis); // Mencari penulis berdasarkan id
                 int tahunTerbit = Integer.parseInt(buku.get(dataJSONBuku.tahunTerbit).toString());
                 int stok = Integer.parseInt(buku.get(dataJSONBuku.stok).toString());
-                listBuku.add(new dataBuku(idBuku, judulBuku, pengarang, tahunTerbit, stok));
+                listBuku.add(new dataBuku(idBuku, judulBuku, penulis, tahunTerbit, stok));
             }
             return listBuku;
         }
     }
 
+        public dataPenulis findPengarangById(ArrayList<dataPenulis> listPenulis, int idPenulis) {
+        for (dataPenulis penulis : listPenulis) {
+            if ((int)penulis.idPenulis == idPenulis) {
+                return penulis;
+            }
+        }
+        return null;
+    }
     
 
     // write
@@ -121,24 +120,24 @@ public class ModelJSONBuku {
                 JsonObject buku = (JsonObject) objBuku;
                 int idBuku = Integer.parseInt(buku.get(dataJSONBuku.idBuku).toString());
                 String judulBuku = buku.get(dataJSONBuku.judulBuku).toString();
-                String pengarang = buku.get(dataJSONBuku.pengarang).toString();
+                String penulis = buku.get(dataJSONBuku.penulis).toString();
                 int tahunTerbit = Integer.parseInt(buku.get(dataJSONBuku.tahunTerbit).toString());
                 int stok = Integer.parseInt(buku.get(dataJSONBuku.stok).toString());
-                listBuku.add(new dataBuku(idBuku, judulBuku, pengarang, tahunTerbit, stok));
+                listBuku.add(new dataBuku(idBuku, judulBuku, penulis, tahunTerbit, stok));
             }
             return listBuku;
         }
     }
 
     // read from file json
-    public ArrayList<dataBuku> readFromFile(ArrayList<dataPengarang> listPengarang) {
+    public ArrayList<dataBuku> readBukuFromFile(ArrayList<dataPenulis> listPenulis) {
         if (cekFile(fname) == false) {
             return null;
         }
         ArrayList<dataBuku> listBuku = null;
         try (FileReader file = new FileReader(fname)) {
             JsonArray arrayBuku = (JsonArray) Jsoner.deserialize(file);
-            listBuku = convertJSONToArrayList(arrayBuku, listPengarang);
+            listBuku = convertJSONToArrayList(arrayBuku, listPenulis);
 
         } catch (IOException | JsonException e) {
             throw new RuntimeException(e);

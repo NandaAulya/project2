@@ -1,1 +1,1 @@
-[{"tahunTerbit":2020,"idBuku":1,"judulBuku":"Buku1","stok":10,"pengarang":null},{"tahunTerbit":2021,"idBuku":2,"judulBuku":"Buku2","stok":5,"pengarang":null}]
+[{"penulis":1,"tahunTerbit":2020,"idBuku":1,"judulBuku":"Buku1","stok":10},{"penulis":2,"tahunTerbit":2021,"idBuku":2,"judulBuku":"Buku2","stok":5}]

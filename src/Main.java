@@ -5,67 +5,57 @@ import Entity.Data.dataBuku;
 import Entity.Data.dataPeminjaman;
 import Entity.Data.dataPengembalian;
 import Entity.Data.dataAdmin;
-import Entity.Data.dataPengarang;
+import Entity.Data.dataPenulis;
 import Model.ModelJSONBuku;
 import Model.ModelJSONAdmin;
 import Model.ModelJSONPeminjaman;
 import Model.ModelJSONPengembalian;
-import Model.ModelJSONPengarang;
+import Model.ModelJSONPenulis;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         ModelJSONBuku buku = new ModelJSONBuku();
         ModelJSONPengembalian pengembalian = new ModelJSONPengembalian();
-        ModelJSONPengarang pengarang = new ModelJSONPengarang();
+        ModelJSONPenulis penulis = new ModelJSONPenulis();
         ModelJSONPeminjaman peminjaman = new ModelJSONPeminjaman();
         ModelJSONAdmin admin = new ModelJSONAdmin();
-        // model.setupFile();
-        // Setup file untuk pengarang
-        pengarang.setupFile();
-
-        // Setup file untuk buku
-        buku.setupFile("src/database/buku.json");
-
-        // Setup file untuk admin
-        admin.setupFile("src/database/admin.json");
-
-        // Setup file untuk peminjaman
-        peminjaman.setupFile("src/database/peminjaman.json");
-
-        // Setup file untuk pengembalian
-        pengembalian.setupFile("src/database/pengembalian.json");
+        
+        penulis.setupFile(); // Setup file untuk pengarang
+        buku.setupFile("src/database/buku.json");// Setup file untuk buku
+        admin.setupFile("src/database/admin.json");// Setup file untuk admin
+        peminjaman.setupFile("src/database/peminjaman.json");// Setup file untuk peminjaman
+        pengembalian.setupFile("src/database/pengembalian.json");// Setup file untuk pengembalian
 
         ArrayList <dataBuku> listBuku = new ArrayList<>();
-        listBuku.add(new dataBuku(1, "Buku1", new dataPengarang("Pengarang1", 1), 2020, 10));
-        listBuku.add(new dataBuku(2, "Buku2", new dataPengarang("Pengarang2", 2), 2021, 5));
+        listBuku.add(new dataBuku(1, "Buku1", new dataPenulis("Penulis1", 1), 2020, 10));
+        listBuku.add(new dataBuku(2, "Buku2", new dataPenulis("Penulis2", 2), 2021, 5));
         buku.writeFileJson(listBuku);
         System.out.println("Data Buku berhasil dimasukkan");
 
+        ArrayList<dataPenulis> listPengarang = new ArrayList<>();
+        listPengarang.add(new dataPenulis("Penulis1", 1));
+        listPengarang.add(new dataPenulis("Penulis2", 2));
+        penulis.writeFileJson(listPengarang);
+        System.out.println("Data Pengarang berhasil dimasukkan");
 
-        ArrayList<dataBuku> listBuku2 = buku.readFromFile(null);
+        ArrayList<dataBuku> listBuku2 = buku.readBukuFromFile(listPengarang);
         if (listBuku2 != null) {
             for (dataBuku buku1 : listBuku2) {
                 System.out.println("ID Buku: " + buku1.idBuku);
                 System.out.println("Judul Buku: " + buku1.judulBuku);
-                System.out.println("Pengarang: " + buku1.pengarang.idPengarang);
+                System.out.println("Pengarang: " + buku1.penulis.idPenulis);
                 System.out.println("Tahun Terbit: " + buku1.tahunTerbit);
                 System.out.println("Stok: " + buku1.stok);
                 System.out.println("-----------------------");
             }
         }
-        // Membuat objek dataPengarang dan menuliskannya ke file JSON
-        ArrayList<dataPengarang> listPengarang = new ArrayList<>();
-        listPengarang.add(new dataPengarang("Pengarang1", 1));
-        listPengarang.add(new dataPengarang("Pengarang2", 2));
-        pengarang.writeFileJson(listPengarang);
-        System.out.println("Data Pengarang berhasil dimasukkan");
 
         // Membaca objek dataPengarang dari file JSON
-        ArrayList<dataPengarang> listPengarang2 = pengarang.readFromFile();
+        ArrayList<dataPenulis> listPengarang2 = penulis.readFromFile();
         if (listPengarang2 != null) {
-            for (dataPengarang pengarang1 : listPengarang2) {
-                System.out.println("ID Pengarang: " + pengarang1.idPengarang);
-                System.out.println("Nama Pengarang: " + pengarang1.namaPengarang);
+            for (dataPenulis pengarang1 : listPengarang2) {
+                System.out.println("ID Pengarang: " + pengarang1.idPenulis);
+                System.out.println("Nama Pengarang: " + pengarang1.namaPenulis);
                 System.out.println("-----------------------");
             }
         }
